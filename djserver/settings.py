@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "api.apps.ApiConfig",
+    "rest_framework",
 
     "corsheaders",
 ]
@@ -120,7 +122,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'reactapp/build/static'),
+    #os.path.join(BASE_DIR, 'reactapp/build/static'),
 ]
 
 # Default primary key field type

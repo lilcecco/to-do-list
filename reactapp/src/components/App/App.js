@@ -21,7 +21,7 @@ function App() {
     });
 
     const data = await res.json();
-    console.loog(data);
+    console.log(data);
   }
 
   return (
