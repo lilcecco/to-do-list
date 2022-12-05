@@ -22,7 +22,7 @@ function App() {
 
     const data = await res.json();
     console.log(data);
-    console.log("ciao");
+    console.log("ciao!!");
   }
 
   return (
