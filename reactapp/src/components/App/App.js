@@ -1,39 +1,47 @@
 import { useEffect, useState } from 'react';
+import Tasks from '../Tasks';
 import './App.css';
 
 function App() {
-  const [name, setName] = useState('');
+  const [tasks, setTasks] = useState();
 
   useEffect(() => {
-    console.log(name);
-  }, [name]);
+    const fetchTasks = async () => {
+      const res = await fetch('http://localhost:8000/api/task');
+      const data = await res.json();
+      console.log(data);
+      setTasks(data);
+    }
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+    fetchTasks();
+  }, []);
 
-    console.log(name);
-    const res = await fetch('http://localhost:8000/api/data/user', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name })
-    });
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
 
-    const data = await res.json();
-    console.log(data);
-    console.log("ciao mondo");
+  //   console.log(name);
+  //   const res = await fetch('http://localhost:8000/api/data/user', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ name })
+  //   });
+
+  //   const data = await res.json();
+  //   console.log(data);
+  // }
+
+  const onToggle = () => {
+    console.log('double click');
   }
 
   return (
     <div className="App">
       <h1>To do list</h1>
-      <form onSubmit={(e) => onSubmit(e)}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="submit" value="Send" />
-      </form>
+      {tasks && <Tasks tasks={tasks} onToggle={onToggle} />}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
