@@ -18,39 +18,79 @@ def getJson(request):
     return Response(es)
 
 @api_view(['GET'])
-def getTask(request):   
-    data = Task.objects.all()
-    serializers = TaskSerializers(data,many=True)
-    return Response(serializers.data)
+def getTask(request):  
+    try:
+        data = Task.objects.all()
+        serializers = TaskSerializers(data,many=True)
+        return Response(serializers.data)
+    except Exception as e:
+        response = [
+            {
+                'error':e.__context__
+            }
+        ]
+        return Response(response)
 
 @api_view(['POST'])
 def createTask(request):
-    data = request.data
-    task = Task.objects.create(
-        title=data['title'],
-        body=data['body'],
-        checked=data['checked'],
-        )
-    serializers = TaskSerializers(instance=task, data=data)
-    return Response(serializers.data)
+    try:
+        data = request.data
+        task = Task.objects.create(
+            title=data['title'],
+            body=data['body'],
+            checked=data['checked'],
+            )
+        serializers = TaskSerializers(instance=task, data=data)
+        return Response(serializers.data)
+    except Exception as e:
+        response = [
+            {
+                'error':e.__context__
+            }
+        ]
+        return Response(response)
 
 @api_view(['PUT'])
 def updateTask(request, pk):
-    task = Task.objects.get(id=pk)
-    serialzers = TaskSerializers(task,data=request.POST)
-    if serialzers.is_valid():
-        serialzers.save()
-    return Response(serialzers.data)
+    try:
+        task = Task.objects.get(id=pk)
+        serialzers = TaskSerializers(task,data=request.POST)
+        if serialzers.is_valid():
+            serialzers.save()
+        return Response(serialzers.data)
+    except Exception as e:
+        response = [
+            {
+                'error':e.__context__
+            }
+        ]
+        return Response(response)
 
 @api_view(['GET'])
 def detailTask(request, pk):
-    task = Task.objects.get(id=pk)
-    serializer = TaskSerializers(task,many=False)
-    return Response(serializer.data)
+    try:
+        task = Task.objects.get(id=pk)
+        serializer = TaskSerializers(task,many=False)
+        return Response(serializer.data)
+    except Exception as e:
+        response = [
+            {
+                'error':e.__context__
+            }
+        ]
+        return Response(response)
 
 @api_view(['DELETE'])
 def delateTask(request,pk):
-    task = Task.objects.get(id=pk)
-    task.delete()
-    return Response('task delated')
+    try:
+        task = Task.objects.get(id=pk)
+        task.delete()
+        return Response('task delated')
+    except Exception as e:
+        response = [
+            {
+                'error':e.__context__
+            }
+        ]
+        return Response(response)
     
