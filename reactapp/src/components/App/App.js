@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react';
+import { FiPlus } from 'react-icons/fi';
+import AddTask from '../AddTask';
 import Tasks from '../Tasks';
 import './App.css';
 
 function App() {
   const [tasks, setTasks] = useState();
+  const [addTaskOpen, setAddTaskOpen] = useState(false);
+
+  useEffect(() => {
+    console.log(tasks);
+  }, [tasks]);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -16,30 +23,24 @@ function App() {
     fetchTasks();
   }, []);
 
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
+  const onToggle = (id) => {
+    setTasks(tasks.map(task => task.id === id ? { ...task, checked: !task.checked } : task))
+  }
 
-  //   console.log(name);
-  //   const res = await fetch('http://localhost:8000/api/data/user', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ name })
-  //   });
-
-  //   const data = await res.json();
-  //   console.log(data);
-  // }
-
-  const onToggle = () => {
-    console.log('double click');
+  const addTask = (newTask) => {;
+    setTasks([ ...tasks, newTask ]);
+    setAddTaskOpen(!addTaskOpen);
   }
 
   return (
     <div className="App">
-      <h1>To do list</h1>
-      {tasks && <Tasks tasks={tasks} onToggle={onToggle} />}
+      <div className="header">
+        <h1>To do list</h1>
+        <div className="add-task-btn" onClick={() => setAddTaskOpen(!addTaskOpen)} >
+          <FiPlus className={`add-task-icon ${addTaskOpen ? 'add-task--open' : ''}`} />
+        </div>
+      </div>
+      {addTaskOpen ? <AddTask addTask={addTask} /> : (tasks && <Tasks tasks={tasks} onToggle={onToggle} />)}
     </div>
   )
 }

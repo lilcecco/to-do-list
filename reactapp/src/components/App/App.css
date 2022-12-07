@@ -6,3 +6,32 @@
     margin: 0 auto;
     padding: 30px;
 }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.add-task-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background-color: var(--color-4);
+    box-shadow: 0px 3px 2px 0px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.add-task-icon {
+    width: 30px;
+    height: 30px;
+    color: var(--color-1);
+    transition: all .3s ease;
+}
+
+.add-task--open {
+    transform: rotate(45deg);
+}

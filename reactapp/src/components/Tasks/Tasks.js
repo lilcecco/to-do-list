@@ -4,7 +4,7 @@ import './Tasks.css';
 const Tasks = ({ tasks, onToggle }) => {
   return (
     <div className="tasks">
-        {tasks.map((task, i) => <Task key={`task-${i}`} task={task} onToggle={onToggle} />)}
+        {tasks.map(task => <Task key={`task-${task.id}`} task={task} onToggle={onToggle} />)}
     </div>
   )
 }
