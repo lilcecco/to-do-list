@@ -26,7 +26,7 @@ def getTask(request):
     except Exception as e:
         response = [
             {
-                'error':e.__context__
+                'error':e.args
             }
         ]
         return Response(response)
@@ -37,15 +37,14 @@ def createTask(request):
         data = request.data
         task = Task.objects.create(
             title=data['title'],
-            body=data['body'],
-            checked=data['checked'],
+            body=data['body']
             )
         serializers = TaskSerializers(instance=task, data=data)
-        return Response(serializers.data)
+        return Response(serializers.initial_data)
     except Exception as e:
         response = [
             {
-                'error':e.__context__
+                'error':e.args
             }
         ]
         return Response(response)
@@ -61,7 +60,7 @@ def updateTask(request, pk):
     except Exception as e:
         response = [
             {
-                'error':e.__context__
+                'error':e.args
             }
         ]
         return Response(response)
@@ -75,7 +74,7 @@ def detailTask(request, pk):
     except Exception as e:
         response = [
             {
-                'error':e.__context__
+                'error':e.args
             }
         ]
         return Response(response)
@@ -89,7 +88,7 @@ def delateTask(request,pk):
     except Exception as e:
         response = [
             {
-                'error':e.__context__
+                'error':e.args
             }
         ]
         return Response(response)
