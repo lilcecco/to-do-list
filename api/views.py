@@ -54,7 +54,7 @@ def createTask(request):
 def updateTask(request, pk):
     try:
         task = Task.objects.get(id=pk)
-        serialzers = TaskSerializers(task,data=request.POST)
+        serialzers = TaskSerializers(instance= task,data=request.data)
         if serialzers.is_valid():
             serialzers.save()
         return Response(serialzers.data)
