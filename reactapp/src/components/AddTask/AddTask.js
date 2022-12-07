@@ -12,17 +12,7 @@ const AddTask = ({ addTask }) => {
 
         const created = new Date().toISOString();
 
-        const res = await fetch('http://localhost:8000/api/task/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ title, body, created, checked: false })
-        });
-        const data = await res.json();
-        console.log(data);
-
-        // addTask(newTask);
+        await addTask({ title, body, created, checked: false });
 
         setTitle('');
         setBody('');

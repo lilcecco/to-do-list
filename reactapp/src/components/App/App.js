@@ -23,12 +23,36 @@ function App() {
     fetchTasks();
   }, []);
 
-  const onToggle = (id) => {
+  // update task
+  const onToggle = async (id) => {
+    const task = tasks.find(task => task.id === id)
+
+    const res = await fetch(`http://localhost:8000/api/task/${id}/update`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...task, checked: !task.checked })
+    });
+    const data = await res.json();
+    console.log(data);
+
     setTasks(tasks.map(task => task.id === id ? { ...task, checked: !task.checked } : task))
   }
 
-  const addTask = (newTask) => {;
-    setTasks([ ...tasks, newTask ]);
+  // add new task
+  const addTask = async (newTask) => {
+    const res = await fetch('http://localhost:8000/api/task/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTask)
+    });
+    const data = await res.json();
+    console.log(data);
+
+    // setTasks([...tasks, newTask]);
     setAddTaskOpen(!addTaskOpen);
   }
 
