@@ -84,7 +84,7 @@ def delateTask(request,pk):
     try:
         task = Task.objects.get(id=pk)
         task.delete()
-        return Response('task delated')
+        return Response('task deleted')
     except Exception as e:
         response = [
             {

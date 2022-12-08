@@ -53,7 +53,20 @@ function App() {
     console.log(data);
 
     // setTasks([...tasks, newTask]);
-    setAddTaskOpen(!addTaskOpen);
+    // setAddTaskOpen(!addTaskOpen);
+
+    window.location.reload();
+  }
+
+  // delete task
+  const deleteTask = async (id) => {
+    const res = await fetch(`http://localhost:8000/api/task/${id}/delete`, {
+      method: 'DELETE',
+    });
+    const data = await res.json();
+    console.log(data);
+
+    setTasks(tasks.filter(task => task.id !== id));
   }
 
   return (
@@ -64,7 +77,7 @@ function App() {
           <FiPlus className={`add-task-icon ${addTaskOpen ? 'add-task--open' : ''}`} />
         </div>
       </div>
-      {addTaskOpen ? <AddTask addTask={addTask} /> : (tasks && <Tasks tasks={tasks} onToggle={onToggle} />)}
+      {addTaskOpen ? <AddTask addTask={addTask} /> : (tasks && <Tasks tasks={tasks} onToggle={onToggle} deleteTask={deleteTask} />)}
     </div>
   )
 }

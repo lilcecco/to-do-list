@@ -3,32 +3,38 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    padding: 0 10px 5px 0;
     overflow-y: auto;
-    padding-right: 10px;
+    overflow-x: hidden;
+}
+
+.task-container {
+    display: flex;
 }
 
 .task {
     position: relative;
     width: 100%;
     min-height: 120px;
-    padding: 20px;
-    border-radius: 3px;
+    padding: 20px 20px 20px 26px;
     background-color: var(--color-1);
     box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.15);
     cursor: pointer;
+    transition: all .3s ease;
 }
 
 .task h2 {
     margin-bottom: 5px;
+    overflow: hidden;
 }
 
 .task p {
-    overflow: hidden;
+    word-wrap: break-word;
 }
 
 .date {
     position: absolute;
-    top: 23px; right: 28px;
+    top: 23px; right: 20px;
     display: flex;
     justify-content: center;
     gap: 5px;
@@ -37,9 +43,29 @@
 
 .marker {
     position: absolute;
-    top: 0; right: 0;
+    top: 0; left: 0;
     width: 6px;
     height: 100%;
-    border-radius: 0 3px 3px 0;
     background-color: var(--color-4);
+}
+
+.task-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 0;
+    font-size: 20px;
+    color: var(--color-1);
+    background-color: var(--color-5);
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.menu--open {
+    width: 40px;
+}
+
+.task-menu--open {
+    margin-left: -40px;
 }
